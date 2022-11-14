@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <form method="post">
+        {% csrf_token %}
+        <h1>Deseja realmente deletar o {{ object }}</h1>
+        <br>
+        <button type="submit" class="btn btn-danger" >Confirmar</button>
+        <a href="{% url 'list_horas_extras' %}" class="btn btn-primary">Cancelar</a>
+    </form>
+{% endblock %}
