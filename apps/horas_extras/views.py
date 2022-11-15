@@ -17,6 +17,20 @@ class HorasExtrasListView(ListView):
         return HoraExtra.objects.filter(funcionario__empresa=empresa_logada)
 
 
+class HorasExtrasFuncionariosUpdateView(UpdateView):
+    model = HoraExtra
+    form_class = HorasExtrasForm
+    # success_url = reverse_lazy('update_funcionario')
+
+    def get_success_url(self):
+        return reverse_lazy('update_funcionario', args=[self.object.funcionario.id])
+
+    def get_form_kwargs(self):
+        kwargs = super(HorasExtrasFuncionariosUpdateView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+
 class HorasExtrasUpdateView(UpdateView):
     model = HoraExtra
     form_class = HorasExtrasForm
