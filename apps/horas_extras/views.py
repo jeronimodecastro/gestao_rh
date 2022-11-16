@@ -1,3 +1,7 @@
+import json
+
+from django.http import HttpResponse
+from django.views import View
 from .forms import HorasExtrasForm
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -55,3 +59,32 @@ class HorasExtrasCreateView(CreateView):
         kwargs.update({'user': self.request.user})
         return kwargs
 
+
+class UtilizouHoraExtraView(View):
+    def post(self, *args, **kwargs):
+        he = HoraExtra.objects.get(id=kwargs['pk'])
+        he.utilizada = True
+        he.save()
+
+        funcionario = self.request.user.funcionario
+
+        response = json.dumps(
+            {'mensagem': 'Hora extra marcada como utilizada',
+             'horas': float(funcionario.total_horas_extras)}
+        )
+        return HttpResponse(response, content_type='application/json')
+
+
+class NaoUtilizouHoraExtraView(View):
+    def post(self, *args, **kwargs):
+        he = HoraExtra.objects.get(id=kwargs['pk'])
+        he.utilizada = False
+        he.save()
+
+        funcionario = self.request.user.funcionario
+
+        response = json.dumps(
+            {'mensagem': 'Hora extra marcada como não utilizada',
+             'horas': float(funcionario.total_horas_extras)}
+        )
+        return HttpResponse(response, content_type='application/json')
