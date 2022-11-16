@@ -9,4 +9,17 @@
         <br>
     {% endfor %}
     <a href="{% url 'create_funcionario' %}" class="btn btn-info">Novo</a>
+    <br><br>
+    <h3>Relatórios</h3>
+    <br>
+    <a href="{% url 'pdf_reportlab' %}">Relatorio PDF reportlab</a><br>
+    <a href="{% url 'pdf_html2pdf' %}">Relatorio PDF html2pdf</a><br>
+    <a href="{% url 'pdf_html2pdf_debug' %}">Relatorio PDF html2pdf Debug</a>
+
+    <br><br>
+    <h3>Exportar dados</h3>
+    <br>
+    <a href="{% url 'exp_csv' %}">Exportar em CSV</a><br>
+    <a href="{% url 'exp_xls' %}">Exportar em XLS</a><br>
+
 {% endblock %}

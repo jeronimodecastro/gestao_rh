@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <style>
+        .teste { color: red }
+    </style>
+    <h1 class="teste">Relatório de Funcionários</h1>
+
+    {% for d in data %}
+        Nome: {{ d.nome }} Horas: {{ d.total_horas_extras }}
+        <br>
+    {% endfor %}
+{% endblock %}
