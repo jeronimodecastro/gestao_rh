@@ -17,6 +17,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+from apps.funcionarios.api.viewset import FuncionarioViewSet
+from apps.horas_extras.api.viewset import HoraExtraViewSet
+
+router = routers.DefaultRouter()
+router.register(r'funcionarios', FuncionarioViewSet)
+router.register(r'horas-extras', HoraExtraViewSet)
 
 urlpatterns = [
     path('', include('apps.core.urls')),
@@ -27,4 +34,6 @@ urlpatterns = [
     path('empresas/', include('apps.empresas.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Gambiarra para visualizar imagens locamente.
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Gambiarra para visualizar imagem local.
